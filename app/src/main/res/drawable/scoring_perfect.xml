@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--perfect-->
+    <item
+        android:drawable="@drawable/new_perfect_0"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_1"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_2"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_3"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_4"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_5"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_6"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_7"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_8"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_9"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_10"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_11"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_12"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_13"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_14"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_15"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_16"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_17"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_18"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_19"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_20"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_21"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_22"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_23"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_24"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_25"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_26"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_27"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_28"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_29"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_30"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_31"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_perfect_32"
+        android:duration="42" />
+    <!--great-->
+    <item
+        android:drawable="@drawable/new_great_0"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_1"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_2"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_3"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_4"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_5"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_6"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_7"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_8"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_9"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_10"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_11"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_12"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_13"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_14"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_15"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_16"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_17"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_18"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_19"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_20"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_21"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_22"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_23"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_24"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_25"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_26"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_27"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_28"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_29"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_30"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_31"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_great_32"
+        android:duration="42" />
+    <!--nice-->
+    <item
+        android:drawable="@drawable/new_nice_0"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_1"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_2"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_3"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_4"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_5"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_6"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_7"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_8"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_9"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_10"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_11"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_12"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_13"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_14"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_15"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_16"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_17"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_18"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_19"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_20"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_21"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_22"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_23"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_24"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_25"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_26"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_27"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_28"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_29"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_30"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_31"
+        android:duration="42" />
+    <item
+        android:drawable="@drawable/new_nice_32"
+        android:duration="42" />
+</animation-list>
