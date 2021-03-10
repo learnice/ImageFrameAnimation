@@ -26,5 +26,5 @@ public interface AnimationListener {
      *
      * @param frameInfo
      */
-    void onFrameCallBack(AbsFrameInfo frameInfo);
+    void onFrame(AbsFrameInfo frameInfo);
 }

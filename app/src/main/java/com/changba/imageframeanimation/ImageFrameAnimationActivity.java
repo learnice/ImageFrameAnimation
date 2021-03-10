@@ -44,7 +44,7 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
         mBtnEnd = findViewById(R.id.btn_end);
         mBtnEnd.setOnClickListener(this);
         // 初始化
-        imageFrameAnimation = new ImageFrameAnimation(mIvFrame);
+        imageFrameAnimation = new ImageFrameAnimation(mIvFrame, ImageFrameAnimation.MODE_LIVE);
         imageFrameAnimation.setFps(30);
         imageFrameAnimation.setRepeatMode(ImageFrameAnimation.RESTART);
         imageFrameAnimation.setRepeatCount(ImageFrameAnimation.INFINITE);
@@ -57,7 +57,7 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
                 generateFrameInfoResData();
                 break;
             case R.id.btn_start:
-                imageFrameAnimation.startAnim(mData);
+                imageFrameAnimation.addAnim(mData);
                 break;
             case R.id.btn_end:
                 imageFrameAnimation.cancelAnim();

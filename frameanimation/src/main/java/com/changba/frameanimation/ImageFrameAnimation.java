@@ -12,7 +12,6 @@ import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -52,13 +51,13 @@ public class ImageFrameAnimation {
      * 图片控件
      */
     private ImageView mImageView;
+    private Context context;
     /**
      * 任务线程池
      */
     private final ExecutorService poolExecutor = new ThreadPoolExecutor(1, 1,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(), new ThreadFactoryDefault());
-
     /**
      * 线程任务
      */
@@ -76,14 +75,6 @@ public class ImageFrameAnimation {
      */
     private long mIntervalPerFrame = 1000 / DEFAULT_FPS + FRAME_DELAY_OFFSET;
     /**
-     * 帧数据
-     */
-    private final LinkedList<AbsFrameInfo> mFrameInfoList = new LinkedList<>();
-    /**
-     * 下一帧的索引
-     */
-    private int mAnimNextFrameIndex = 0;
-    /**
      * 任务执行结果
      */
     private Future<AbsFrameInfo> future;
@@ -91,31 +82,18 @@ public class ImageFrameAnimation {
      * bitmap 内存复用
      */
     private final BitmapDoubleBuffer mDoubleBuffer = new BitmapDoubleBuffer();
-
     /**
-     * 动画配置：动画重复播放次数播放
+     * 文件缓存
      */
-    private int mRepeatCount = 0;
+    private final ImageFileCache mFileCache = new ImageFileCache();
     /**
-     * 动画配置：动画重复播放模式
+     * 动画帧运行的模式
      */
-    private int mRepeatMode = RESTART;
-    /**
-     * 动画运行的次数
-     */
-    private int mAnimRunningTimes = 0;
-    /**
-     * 动画运行中变化方向（可以认为它是一个向量，可以用它来跳帧）
-     */
-    private int mAnimRunningDirection = 1;
+    private final IExecutionMode mExecutionMode;
     /**
      * 回调动画状态
      */
     private AnimationListener listener;
-
-    private final ImageFileCache mFileCache = new ImageFileCache();
-
-    private Context context;
 
     public ImageFrameAnimation(ImageView imageView) {
         if (imageView == null) {
@@ -123,6 +101,32 @@ public class ImageFrameAnimation {
         }
         this.mImageView = imageView;
         this.context = imageView.getContext();
+        this.mExecutionMode = createExecutionMode(MODE_NORMAL);
+    }
+
+    public ImageFrameAnimation(ImageView imageView, @ExecutionMode int executionMode) {
+        if (imageView == null) {
+            throw new NullPointerException("imageView must be non-null");
+        }
+        this.mImageView = imageView;
+        this.context = imageView.getContext();
+        this.mExecutionMode = createExecutionMode(executionMode);
+    }
+
+    /**
+     * 创建执行模式
+     *
+     * @param executionMode
+     * @return
+     */
+    private IExecutionMode createExecutionMode(@ExecutionMode int executionMode) {
+        if (executionMode == MODE_NORMAL) {
+            return new NormalExecutionMode();
+        } else if (executionMode == MODE_LIVE) {
+            return new LiveExecutionMode();
+        } else {
+            throw new RuntimeException("Unsupported mode！！！");
+        }
     }
 
     public void setFps(int fps) {
@@ -143,11 +147,11 @@ public class ImageFrameAnimation {
     }
 
     public void setRepeatCount(int value) {
-        mRepeatCount = value;
+        mExecutionMode.setRepeatCount(value);
     }
 
     public void setRepeatMode(@RepeatMode int value) {
-        mRepeatMode = value;
+        mExecutionMode.setRepeatMode(value);
     }
 
     /**
@@ -160,12 +164,10 @@ public class ImageFrameAnimation {
             return;
         }
         reset();
-        mFrameInfoList.clear();
-        mFrameInfoList.addAll(frameInfoList);
+        clear();
+        addAll(frameInfoList);
         postUpdate();
-        if (listener != null) {
-            listener.onAnimationStart();
-        }
+        callbackOnStart();
     }
 
     /**
@@ -177,25 +179,21 @@ public class ImageFrameAnimation {
         if (frameInfoList == null) {
             return;
         }
-        mFrameInfoList.addAll(frameInfoList);
+        addAll(frameInfoList);
         if (!isRunning()) {
             reset();
         }
         postUpdate();
-        if (listener != null) {
-            listener.onAnimationStart();
-        }
+        callbackOnStart();
     }
 
     /**
      * 取消动画
      */
     public void cancelAnim() {
-        mFrameInfoList.clear();
+        clear();
         choreographer.removeFrameCallback(frameCallback);
-        if (listener != null) {
-            listener.onAnimationCancel();
-        }
+        callbackOnCancel();
     }
 
     /**
@@ -239,9 +237,7 @@ public class ImageFrameAnimation {
         } else {
             if (future.isDone()) {
                 AbsFrameInfo frameInfo = future.get();
-                if (listener != null) {
-                    listener.onFrameCallBack(frameInfo);
-                }
+                callbackOnFrame(frameInfo);
                 mImageView.setImageBitmap(frameInfo.getFrameBitmap());
                 if (isRunning()) {
                     submitTask(getNextFrame());
@@ -260,48 +256,93 @@ public class ImageFrameAnimation {
         }
     }
 
+    /**
+     * 获取下一帧
+     *
+     * @return
+     */
     private AbsFrameInfo getNextFrame() {
-        AbsFrameInfo frameInfo;
-        frameInfo = mFrameInfoList.get(mAnimNextFrameIndex);
-        mAnimNextFrameIndex += mAnimRunningDirection;
-        // 如果到边界了
-        if (mAnimNextFrameIndex <= -1 || mAnimNextFrameIndex >= mFrameInfoList.size()) {
-            // 运行次数++
-            mAnimRunningTimes++;
-            if (mRepeatMode == REVERSE) {
-                mAnimRunningDirection = -mAnimRunningDirection;
-                mAnimNextFrameIndex += mAnimRunningDirection;
-            }
-            if (mRepeatMode == RESTART) {
-                mAnimNextFrameIndex = 0;
-            }
-        }
-        return frameInfo;
+        return mExecutionMode.getNextFrame();
     }
 
+    /**
+     * 获取当前帧
+     *
+     * @return
+     */
     private AbsFrameInfo getCurFrame() {
-        AbsFrameInfo frameInfo;
-        frameInfo = mFrameInfoList.get(mAnimNextFrameIndex);
-        return frameInfo;
+        return mExecutionMode.getCurFrame();
     }
 
+    /**
+     * 是否运行状态
+     *
+     * @return
+     */
     private boolean isRunning() {
-        if (mRepeatCount == INFINITE) {
-            return true;
-        }
-        if (mRepeatCount + 1 == mAnimRunningTimes) {
-            if (listener != null) {
-                listener.onAnimationEnd();
-            }
-            return false;
-        }
-        return true;
+        return mExecutionMode.isRunning();
     }
 
+    /**
+     * 重置
+     */
     private void reset() {
-        mAnimNextFrameIndex = 0;
-        mAnimRunningTimes = 0;
-        mAnimRunningDirection = 1;
+        mExecutionMode.reset();
+    }
+
+    /**
+     * 添加所有数据
+     *
+     * @param frameInfoList
+     */
+    private void addAll(List<AbsFrameInfo> frameInfoList) {
+        mExecutionMode.addALL(frameInfoList);
+    }
+
+    /**
+     * 清除数据
+     */
+    private void clear() {
+        mExecutionMode.clear();
+    }
+
+    /**
+     * 回调开始
+     */
+    private void callbackOnStart() {
+        if (listener != null) {
+            listener.onAnimationStart();
+        }
+    }
+
+    /**
+     * 回调结束
+     */
+    private void callbackOnEnd() {
+        if (listener != null) {
+            listener.onAnimationEnd();
+
+        }
+    }
+
+    /**
+     * 回调取消
+     */
+    private void callbackOnCancel() {
+        if (listener != null) {
+            listener.onAnimationCancel();
+        }
+    }
+
+    /**
+     * 回调当前播放的帧
+     *
+     * @param frameInfo
+     */
+    private void callbackOnFrame(AbsFrameInfo frameInfo) {
+        if (listener != null) {
+            listener.onFrame(frameInfo);
+        }
     }
 
     private void submitTask(AbsFrameInfo frameInfo) {
@@ -390,4 +431,19 @@ public class ImageFrameAnimation {
     public static final int RESTART = 1;
     public static final int REVERSE = 2;
     public static final int INFINITE = -1;
+
+
+    @IntDef({MODE_NORMAL, MODE_LIVE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ExecutionMode {
+    }
+
+    /**
+     * 通常模式
+     */
+    public static final int MODE_NORMAL = 0;
+    /**
+     * live 模式
+     */
+    public static final int MODE_LIVE = 1;
 }
