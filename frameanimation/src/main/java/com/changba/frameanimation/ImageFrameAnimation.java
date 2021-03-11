@@ -104,25 +104,25 @@ public class ImageFrameAnimation {
         this.mExecutionMode = createExecutionMode(MODE_NORMAL);
     }
 
-    public ImageFrameAnimation(ImageView imageView, @ExecutionMode int executionMode) {
+    public ImageFrameAnimation(ImageView imageView, @RunMode int runMode) {
         if (imageView == null) {
             throw new NullPointerException("imageView must be non-null");
         }
         this.mImageView = imageView;
         this.context = imageView.getContext();
-        this.mExecutionMode = createExecutionMode(executionMode);
+        this.mExecutionMode = createExecutionMode(runMode);
     }
 
     /**
      * 创建执行模式
      *
-     * @param executionMode
+     * @param runMode
      * @return
      */
-    private IExecutionMode createExecutionMode(@ExecutionMode int executionMode) {
-        if (executionMode == MODE_NORMAL) {
+    private IExecutionMode createExecutionMode(@RunMode int runMode) {
+        if (runMode == MODE_NORMAL) {
             return new NormalExecutionMode();
-        } else if (executionMode == MODE_LIVE) {
+        } else if (runMode == MODE_LIVE) {
             return new LiveExecutionMode();
         } else {
             throw new RuntimeException("Unsupported mode！！！");
@@ -435,7 +435,7 @@ public class ImageFrameAnimation {
 
     @IntDef({MODE_NORMAL, MODE_LIVE})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ExecutionMode {
+    public @interface RunMode {
     }
 
     /**
