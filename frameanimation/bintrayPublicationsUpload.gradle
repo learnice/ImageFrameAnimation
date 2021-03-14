@@ -1,0 +1,81 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+def gitUrl = 'https://github.com'
+def groupIdDefined = 'com.changba'
+def artifactIdDefined = 'imageframeanimation'
+def versionDefined = '0.0.1'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty('bintray.user')
+    key = properties.getProperty('bintray.apikey')
+    publications = ['release']
+    publish = true
+    override = true
+    pkg {
+        repo = 'main-repo'
+        name = 'imageframeanimation'
+        desc = ''
+        licenses = ['ISC']
+        vcsUrl = gitUrl
+        publicDownloadNumbers = true
+        version {
+            name = "$versionDefined"
+            released = new Date()
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// ./gradlew clean build generatePomFileForAarPublication bintrayUpload
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+//                artifact("$buildDir/outputs/aar/frameanimation-release.aar")
+                artifact sourcesJar
+                artifact javadocJar
+                groupId "$groupIdDefined"
+                artifactId "$artifactIdDefined"
+                version "$versionDefined"
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
+                    configurations.implementation.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included in the pom.
+                        if (it.name != 'unspecified') {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
