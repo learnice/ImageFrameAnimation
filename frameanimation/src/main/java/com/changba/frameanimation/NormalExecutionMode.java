@@ -70,6 +70,9 @@ public class NormalExecutionMode implements IExecutionMode {
 
     @Override
     public boolean isRunning() {
+        if (mFrameInfoList.isEmpty()) {
+            return false;
+        }
         if (mRepeatCount == INFINITE) {
             return true;
         }
