@@ -36,17 +36,25 @@ public class ImageFrameAnimation {
     private static final String TAG = ImageFrameAnimation.class.getSimpleName();
     public static final boolean DEBUG = BuildConfig.DEBUG;
     /**
-     * 支持的帧率（这个帧率是我们加载图片的帧率，显示帧率只能做到屏幕刷新率的负幂次）
+     * 最大帧率（默认设备帧率）
      */
-    private static final float[] SUPPORT_FPS = {60, 30, 15, 7.5f, 3.75f, 1.875f};
+    private static final int DEFAULT_MAX_FPS = 60;
+    /**
+     * 最小帧率
+     */
+    private static final int DEFAULT_MIN_FPS = 1;
+    /**
+     * 帧率，默认 30 帧
+     */
+    private static final int DEFAULT_FPS = 30;
     /**
      * 保证帧的时间在 Vsync 之前
      */
     private static final int FRAME_DELAY_OFFSET = -5;
     /**
-     * 帧率，默认 30 帧
+     * 一帧的时间
      */
-    private static final int DEFAULT_FPS = (int) SUPPORT_FPS[1];
+    private static final float DEFAULT_A_FRAME_OF_TIME = 1000f / DEFAULT_MAX_FPS;
     /**
      * 图片控件
      */
@@ -87,7 +95,7 @@ public class ImageFrameAnimation {
      */
     private final ImageFileCache mFileCache = new ImageFileCache();
     /**
-     * 动画帧运行的模式
+     * 动画运行的模式
      */
     private final IExecutionMode mExecutionMode;
     /**
@@ -95,55 +103,39 @@ public class ImageFrameAnimation {
      */
     private AnimationListener listener;
 
+    /**
+     * 构造方法，采用 {@link NormalExecutionMode} 模式运行
+     *
+     * @param imageView 需要运行动画的 View
+     */
     public ImageFrameAnimation(ImageView imageView) {
         if (imageView == null) {
             throw new NullPointerException("imageView must be non-null");
         }
         this.mImageView = imageView;
         this.context = imageView.getContext();
-        this.mExecutionMode = createExecutionMode(MODE_NORMAL);
+        this.mExecutionMode = new NormalExecutionMode();
     }
 
-    public ImageFrameAnimation(ImageView imageView, @RunMode int runMode) {
+    /**
+     * 构造方法
+     *
+     * @param imageView     需要运行动画的 View
+     * @param executionMode 动画运行模式，默认实现了 {@link NormalExecutionMode}、{@link NormalExecutionMode}
+     */
+    public ImageFrameAnimation(ImageView imageView, IExecutionMode executionMode) {
         if (imageView == null) {
             throw new NullPointerException("imageView must be non-null");
         }
         this.mImageView = imageView;
         this.context = imageView.getContext();
-        this.mExecutionMode = createExecutionMode(runMode);
-    }
-
-    /**
-     * 创建执行模式
-     *
-     * @param runMode
-     * @return
-     */
-    private IExecutionMode createExecutionMode(@RunMode int runMode) {
-        if (runMode == MODE_NORMAL) {
-            return new NormalExecutionMode();
-        } else if (runMode == MODE_LIVE) {
-            return new LiveExecutionMode();
-        } else {
-            throw new RuntimeException("Unsupported mode！！！");
-        }
+        this.mExecutionMode = executionMode;
     }
 
     public void setFps(int fps) {
-        this.mFps = fps;
-        // 找出一个支持的 最接近的 fps
-        float minDifference = Math.abs(SUPPORT_FPS[0] - fps);
-        int minIndex = 0;
-        for (int i = 1; i < SUPPORT_FPS.length; i++) {
-            float tmp = Math.abs(SUPPORT_FPS[i] - fps);
-            if (tmp < minDifference) {
-                minIndex = i;
-                minDifference = tmp;
-            }
-        }
-        // 计算帧间隔时间
-        int realFrameTime = (int) (1000 / SUPPORT_FPS[minIndex]);
-        this.mIntervalPerFrame = realFrameTime + FRAME_DELAY_OFFSET;
+        this.mFps = Math.min(Math.max(DEFAULT_MIN_FPS, fps), DEFAULT_MAX_FPS);
+        int stride = DEFAULT_MAX_FPS / mFps;
+        mIntervalPerFrame = (long) (stride * DEFAULT_A_FRAME_OF_TIME + FRAME_DELAY_OFFSET);
     }
 
     public void setRepeatCount(int value) {
@@ -431,19 +423,4 @@ public class ImageFrameAnimation {
     public static final int RESTART = 1;
     public static final int REVERSE = 2;
     public static final int INFINITE = -1;
-
-
-    @IntDef({MODE_NORMAL, MODE_LIVE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface RunMode {
-    }
-
-    /**
-     * 通常模式
-     */
-    public static final int MODE_NORMAL = 0;
-    /**
-     * live 模式
-     */
-    public static final int MODE_LIVE = 1;
 }

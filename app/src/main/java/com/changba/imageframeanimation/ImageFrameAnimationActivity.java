@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.changba.frameanimation.AbsFrameInfo;
 import com.changba.frameanimation.FileFrameInfo;
 import com.changba.frameanimation.ImageFrameAnimation;
+import com.changba.frameanimation.LiveExecutionMode;
 import com.changba.frameanimation.ResFrameInfo;
 
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
         mBtnEnd = findViewById(R.id.btn_end);
         mBtnEnd.setOnClickListener(this);
         // 初始化
-        imageFrameAnimation = new ImageFrameAnimation(mIvFrame, ImageFrameAnimation.MODE_LIVE);
-        imageFrameAnimation.setFps(30);
+        imageFrameAnimation = new ImageFrameAnimation(mIvFrame, new LiveExecutionMode());
+        imageFrameAnimation.setFps(60);
         imageFrameAnimation.setRepeatMode(ImageFrameAnimation.RESTART);
         imageFrameAnimation.setRepeatCount(ImageFrameAnimation.INFINITE);
     }
