@@ -69,6 +69,10 @@ public abstract class AbsFrameInfo {
         return bitmap;
     }
 
+    public String getFrameName() {
+        return "";
+    }
+
     public Bitmap getFrameBitmap() {
         return frameBitmap;
     }

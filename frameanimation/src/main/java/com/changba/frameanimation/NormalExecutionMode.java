@@ -74,9 +74,6 @@ public class NormalExecutionMode implements IExecutionMode {
             return true;
         }
         if (mRepeatCount + 1 == mAnimRunningTimes) {
-//            if (listener != null) {
-//                listener.onAnimationEnd();
-//            }
             return false;
         }
         return true;

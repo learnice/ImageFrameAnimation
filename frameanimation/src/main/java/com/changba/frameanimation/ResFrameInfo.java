@@ -18,8 +18,11 @@ public class ResFrameInfo extends AbsFrameInfo {
      */
     protected final int res;
 
+    private String frameName;
+
     public ResFrameInfo(int res) {
         this.res = res;
+        frameName = String.valueOf(res);
     }
 
     @Override
@@ -41,5 +44,10 @@ public class ResFrameInfo extends AbsFrameInfo {
         }
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
         return bitmap;
+    }
+
+    @Override
+    public String getFrameName() {
+        return frameName;
     }
 }

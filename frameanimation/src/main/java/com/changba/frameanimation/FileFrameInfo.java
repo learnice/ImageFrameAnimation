@@ -43,4 +43,9 @@ public class FileFrameInfo extends AbsFrameInfo {
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
         return bitmap;
     }
+
+    @Override
+    public String getFrameName() {
+        return path;
+    }
 }

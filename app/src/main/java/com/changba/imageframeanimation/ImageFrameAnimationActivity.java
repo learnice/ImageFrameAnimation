@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.changba.frameanimation.AbsFrameInfo;
+import com.changba.frameanimation.AnimationListener;
 import com.changba.frameanimation.FileFrameInfo;
 import com.changba.frameanimation.ImageFrameAnimation;
 import com.changba.frameanimation.LiveExecutionMode;
@@ -49,6 +51,27 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
         imageFrameAnimation.setFps(60);
         imageFrameAnimation.setRepeatMode(ImageFrameAnimation.RESTART);
         imageFrameAnimation.setRepeatCount(ImageFrameAnimation.INFINITE);
+        imageFrameAnimation.setListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart() {
+                Log.d(TAG, "onAnimationStart: ");
+            }
+
+            @Override
+            public void onAnimationEnd() {
+                Log.d(TAG, "onAnimationEnd: ");
+            }
+
+            @Override
+            public void onAnimationCancel() {
+                Log.d(TAG, "onAnimationCancel: ");
+            }
+
+            @Override
+            public void onFrame(AbsFrameInfo frameInfo) {
+                Log.d(TAG, "onFrame: " + frameInfo.getFrameName());
+            }
+        });
     }
 
     @Override

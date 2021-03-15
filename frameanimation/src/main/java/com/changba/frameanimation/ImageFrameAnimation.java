@@ -171,12 +171,12 @@ public class ImageFrameAnimation {
         if (frameInfoList == null) {
             return;
         }
-        addAll(frameInfoList);
         if (!isRunning()) {
             reset();
+            callbackOnStart();
         }
+        addAll(frameInfoList);
         postUpdate();
-        callbackOnStart();
     }
 
     /**
@@ -202,17 +202,14 @@ public class ImageFrameAnimation {
         choreographer.postFrameCallbackDelayed(frameCallback, mIntervalPerFrame);
     }
 
-    private final Choreographer.FrameCallback frameCallback = new Choreographer.FrameCallback() {
-        @Override
-        public void doFrame(long frameTimeNanos) {
-            try {
-                render();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-                if (isRunning()) {
-                    submitTask(getNextFrame());
-                    postUpdate();
-                }
+    private final Choreographer.FrameCallback frameCallback = frameTimeNanos -> {
+        try {
+            render();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            if (isRunning()) {
+                submitTask(getNextFrame());
+                postUpdate();
             }
         }
     };
@@ -237,6 +234,7 @@ public class ImageFrameAnimation {
                 } else {
                     // 动画结束
                     future = null;
+                    callbackOnEnd();
                 }
             } else {
                 // 丢帧了
