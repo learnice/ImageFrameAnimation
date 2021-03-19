@@ -127,6 +127,9 @@ public class ImageFrameAnimation {
         if (imageView == null) {
             throw new NullPointerException("imageView must be non-null");
         }
+        if (executionMode == null) {
+            throw new NullPointerException("executionMode must be non-null");
+        }
         this.mImageView = imageView;
         this.context = imageView.getContext();
         this.mExecutionMode = executionMode;

@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import com.changba.frameanimation.AbsFrameInfo;
 import com.changba.frameanimation.AnimationListener;
 import com.changba.frameanimation.FileFrameInfo;
+import com.changba.frameanimation.IExecutionMode;
 import com.changba.frameanimation.ImageFrameAnimation;
 import com.changba.frameanimation.LiveExecutionMode;
+import com.changba.frameanimation.NormalExecutionMode;
 import com.changba.frameanimation.ResFrameInfo;
 
 import java.util.ArrayList;
@@ -46,11 +48,22 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
         mBtnStart.setOnClickListener(this);
         mBtnEnd = findViewById(R.id.btn_end);
         mBtnEnd.setOnClickListener(this);
+        // Live 运行方式
+        // IExecutionMode liveExecutionMode = new LiveExecutionMode();
+        // Normal 运行方式
+        // IExecutionMode normalExecutionMode = new NormalExecutionMode();
+        // 创建 ImageFrameAnimation 传入需要的 IExecutionMode
+        // imageFrameAnimation = new ImageFrameAnimation(mIvFrame, liveExecutionMode);
+
         // 初始化
         imageFrameAnimation = new ImageFrameAnimation(mIvFrame);
-        imageFrameAnimation.setFps(60);
+        // 运行帧率（默认为 30）
+        imageFrameAnimation.setFps(30);
+        // 设置 RepeatMode 重新开始（默认为 RESTART）
         imageFrameAnimation.setRepeatMode(ImageFrameAnimation.RESTART);
-        imageFrameAnimation.setRepeatCount(2);
+        // 设置 RepeatCount 无限循环 （默认为 0 次）
+        imageFrameAnimation.setRepeatCount(ImageFrameAnimation.INFINITE);
+        // 监听
         imageFrameAnimation.setListener(new AnimationListener() {
             @Override
             public void onAnimationStart() {
@@ -81,9 +94,13 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
                 generateFrameInfoResData();
                 break;
             case R.id.btn_start:
+                // 开始动画
                 imageFrameAnimation.startAnim(mData);
+                // 如果选用了 Live 运行方式，需要调用 addAnim 给组件添加资源，供组件消费（主线程调用）
+                // imageFrameAnimation.addAnim(mData);
                 break;
             case R.id.btn_end:
+                // cancel 动画
                 imageFrameAnimation.cancelAnim();
                 break;
             default:
