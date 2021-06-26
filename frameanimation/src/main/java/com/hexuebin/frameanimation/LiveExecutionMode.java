@@ -18,14 +18,9 @@ public class LiveExecutionMode implements IExecutionMode {
     private final LinkedList<AbsFrameInfo> mFrameInfoList = new LinkedList<>();
 
     @Override
-    public AbsFrameInfo getNextFrame() {
+    public AbsFrameInfo nextFrame() {
         AbsFrameInfo frameInfo = mFrameInfoList.remove();
         return frameInfo;
-    }
-
-    @Override
-    public AbsFrameInfo getCurFrame() {
-        return mFrameInfoList.getFirst();
     }
 
     @Override
@@ -44,7 +39,7 @@ public class LiveExecutionMode implements IExecutionMode {
     }
 
     @Override
-    public void addALL(List<AbsFrameInfo> frameInfoList) {
+    public void addAll(List<AbsFrameInfo> frameInfoList) {
         mFrameInfoList.addAll(frameInfoList);
     }
 }

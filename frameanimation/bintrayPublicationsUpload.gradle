@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 def gitUrl = 'https://github.com'
-def groupIdDefined = 'com.changba'
+def groupIdDefined = 'com.hexuebin'
 def artifactIdDefined = 'imageframeanimation'
 def versionDefined = '0.0.1'
 

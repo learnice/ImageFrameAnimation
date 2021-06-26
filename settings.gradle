@@ -1,3 +1,4 @@
 include ':frameanimation'
 include ':app'
 rootProject.name = "ImageFrameAnimation"
+include ':frameanimation-kt'

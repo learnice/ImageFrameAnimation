@@ -13,14 +13,7 @@ public interface IExecutionMode {
      *
      * @return
      */
-    AbsFrameInfo getNextFrame();
-
-    /**
-     * 获取当前帧数据
-     *
-     * @return
-     */
-    AbsFrameInfo getCurFrame();
+    AbsFrameInfo nextFrame();
 
     /**
      * 是否是运行状态
@@ -44,10 +37,10 @@ public interface IExecutionMode {
      *
      * @param frameInfoList
      */
-    void addALL(List<AbsFrameInfo> frameInfoList);
+    void addAll(List<AbsFrameInfo> frameInfoList);
 
     /**
-     * 默认方法色通知重试次数
+     * 默认方法设置重试次数
      *
      * @param value
      */

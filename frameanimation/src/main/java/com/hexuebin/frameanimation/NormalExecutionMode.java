@@ -42,7 +42,7 @@ public class NormalExecutionMode implements IExecutionMode {
     private int mAnimRunningDirection = 1;
 
     @Override
-    public AbsFrameInfo getNextFrame() {
+    public AbsFrameInfo nextFrame() {
         AbsFrameInfo frameInfo;
         frameInfo = mFrameInfoList.get(mAnimNextFrameIndex);
         mAnimNextFrameIndex += mAnimRunningDirection;
@@ -58,13 +58,6 @@ public class NormalExecutionMode implements IExecutionMode {
                 mAnimNextFrameIndex = 0;
             }
         }
-        return frameInfo;
-    }
-
-    @Override
-    public AbsFrameInfo getCurFrame() {
-        AbsFrameInfo frameInfo;
-        frameInfo = mFrameInfoList.get(mAnimNextFrameIndex);
         return frameInfo;
     }
 
@@ -95,7 +88,7 @@ public class NormalExecutionMode implements IExecutionMode {
     }
 
     @Override
-    public void addALL(List<AbsFrameInfo> frameInfoList) {
+    public void addAll(List<AbsFrameInfo> frameInfoList) {
         mFrameInfoList.addAll(frameInfoList);
     }
 

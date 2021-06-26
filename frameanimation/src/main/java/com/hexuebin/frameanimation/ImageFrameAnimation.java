@@ -221,7 +221,7 @@ public class ImageFrameAnimation {
         // 动画开始
         if (future == null) {
             if (isRunning()) {
-                submitTask(getCurFrame());
+                submitTask(getNextFrame());
                 postUpdate();
             } else {
                 future = null;
@@ -255,16 +255,7 @@ public class ImageFrameAnimation {
      * @return
      */
     private AbsFrameInfo getNextFrame() {
-        return mExecutionMode.getNextFrame();
-    }
-
-    /**
-     * 获取当前帧
-     *
-     * @return
-     */
-    private AbsFrameInfo getCurFrame() {
-        return mExecutionMode.getCurFrame();
+        return mExecutionMode.nextFrame();
     }
 
     /**
@@ -289,7 +280,7 @@ public class ImageFrameAnimation {
      * @param frameInfoList
      */
     private void addAll(List<AbsFrameInfo> frameInfoList) {
-        mExecutionMode.addALL(frameInfoList);
+        mExecutionMode.addAll(frameInfoList);
     }
 
     /**
