@@ -1,4 +1,4 @@
-package com.hexuebin.frameanimation_kt
+package com.hexuebin.frameanimation
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

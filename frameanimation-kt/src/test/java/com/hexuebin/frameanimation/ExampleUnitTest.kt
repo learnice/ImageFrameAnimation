@@ -1,4 +1,4 @@
-package com.hexuebin.frameanimation_kt
+package com.hexuebin.frameanimation
 
 import org.junit.Test
 

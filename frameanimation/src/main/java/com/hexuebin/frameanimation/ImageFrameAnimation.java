@@ -22,7 +22,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-
 /**
  * 图片帧动画：使用几张图的内存运行整个动画
  * <p>

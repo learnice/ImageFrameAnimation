@@ -2,10 +2,12 @@ package com.hexuebin.imageframeanimation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -13,6 +15,7 @@ import com.hexuebin.frameanimation.AbsFrameInfo;
 import com.hexuebin.frameanimation.AnimationListener;
 import com.hexuebin.frameanimation.FileFrameInfo;
 import com.hexuebin.frameanimation.ImageFrameAnimation;
+import com.hexuebin.frameanimation.RepeatModeKt;
 import com.hexuebin.frameanimation.ResFrameInfo;
 
 import java.util.ArrayList;
@@ -57,9 +60,9 @@ public class ImageFrameAnimationActivity extends AppCompatActivity implements Vi
         // 运行帧率（默认为 30）
         imageFrameAnimation.setFps(30);
         // 设置 RepeatMode 重新开始（默认为 RESTART）
-        imageFrameAnimation.setRepeatMode(ImageFrameAnimation.RESTART);
+        imageFrameAnimation.setRepeatMode(RepeatModeKt.RESTART);
         // 设置 RepeatCount 无限循环 （默认为 0 次）
-        imageFrameAnimation.setRepeatCount(ImageFrameAnimation.INFINITE);
+        imageFrameAnimation.setRepeatCount(RepeatModeKt.INFINITE);
         // 监听
         imageFrameAnimation.setListener(new AnimationListener() {
             @Override
