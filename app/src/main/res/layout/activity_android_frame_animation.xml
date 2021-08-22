@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_set_data"
+        android:id="@+id/btn_normal_init"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="setData"
@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_normal_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="start"

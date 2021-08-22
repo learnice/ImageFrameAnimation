@@ -28,9 +28,9 @@ public class AndroidFrameAnimationActivity extends AppCompatActivity implements 
 
     private void initView() {
         mIvFrame = findViewById(R.id.iv_frame_perfect);
-        mBtnSetData = findViewById(R.id.btn_set_data);
+        mBtnSetData = findViewById(R.id.btn_normal_init);
         mBtnSetData.setOnClickListener(this);
-        mBtnStart = findViewById(R.id.btn_start);
+        mBtnStart = findViewById(R.id.btn_normal_start);
         mBtnStart.setOnClickListener(this);
         mBtnEnd = findViewById(R.id.btn_end);
         mBtnEnd.setOnClickListener(this);
@@ -44,10 +44,10 @@ public class AndroidFrameAnimationActivity extends AppCompatActivity implements 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_set_data:
+            case R.id.btn_normal_init:
                 //generateFrameInfo();
                 break;
-            case R.id.btn_start:
+            case R.id.btn_normal_start:
                 animationDrawable.start();
                 break;
             case R.id.btn_end:

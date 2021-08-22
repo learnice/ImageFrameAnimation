@@ -14,22 +14,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_set_data"
+    <LinearLayout
+        android:id="@+id/ll_normal_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="setData"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/btn_start"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal 模式"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_normal_init"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="init" />
+
+        <Button
+            android:id="@+id/btn_normal_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_line_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Live 模式"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_line_init"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="init" />
+
+        <Button
+            android:id="@+id/btn_line_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_end"

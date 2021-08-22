@@ -103,4 +103,40 @@
         <item>@drawable/new_nice_31</item>
         <item>@drawable/new_nice_32</item>
     </array>
+
+    <array name="score_perfect_array">
+        <item>@drawable/theme_default_perfect_0</item>
+        <item>@drawable/theme_default_perfect_1</item>
+        <item>@drawable/theme_default_perfect_2</item>
+        <item>@drawable/theme_default_perfect_3</item>
+        <item>@drawable/theme_default_perfect_4</item>
+        <item>@drawable/theme_default_perfect_5</item>
+        <item>@drawable/theme_default_perfect_6</item>
+        <item>@drawable/theme_default_perfect_7</item>
+        <item>@drawable/theme_default_perfect_8</item>
+        <item>@drawable/theme_default_perfect_9</item>
+        <item>@drawable/theme_default_perfect_10</item>
+        <item>@drawable/theme_default_perfect_11</item>
+        <item>@drawable/theme_default_perfect_12</item>
+        <item>@drawable/theme_default_perfect_13</item>
+        <item>@drawable/theme_default_perfect_14</item>
+        <item>@drawable/theme_default_perfect_15</item>
+        <item>@drawable/theme_default_perfect_16</item>
+        <item>@drawable/theme_default_perfect_17</item>
+        <item>@drawable/theme_default_perfect_18</item>
+        <item>@drawable/theme_default_perfect_19</item>
+        <item>@drawable/theme_default_perfect_20</item>
+        <item>@drawable/theme_default_perfect_21</item>
+        <item>@drawable/theme_default_perfect_22</item>
+        <item>@drawable/theme_default_perfect_23</item>
+        <item>@drawable/theme_default_perfect_24</item>
+        <item>@drawable/theme_default_perfect_25</item>
+        <item>@drawable/theme_default_perfect_26</item>
+        <item>@drawable/theme_default_perfect_27</item>
+        <item>@drawable/theme_default_perfect_28</item>
+        <item>@drawable/theme_default_perfect_29</item>
+        <item>@drawable/theme_default_perfect_30</item>
+        <item>@drawable/theme_default_perfect_31</item>
+        <item>@drawable/theme_default_perfect_32</item>
+    </array>
 </resources>
